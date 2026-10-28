@@ -1,0 +1,46 @@
+name: Verfy MCP Lock
+description: Fail the pull request when an MCP tool your agents use changed since you locked it in verfy.lock.
+author: Verfy
+branding:
+  icon: lock
+  color: blue
+
+inputs:
+  config:
+    description: MCP config whose servers are checked. Stdio servers are started; remote servers are called with the headers in the config, where ${VAR} comes from this step's env.
+    default: .mcp.json
+  lock:
+    description: The committed lock file to compare with.
+    default: verfy.lock
+  servers:
+    description: Optional space-separated server names to check (default all servers in the config).
+    default: ""
+  version:
+    description: Verfy CLI version to install from PyPI.
+    default: "0.7.0"
+  python-version:
+    description: Python that runs Verfy (3.10 or newer).
+    default: "3.13"
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python for Verfy
+      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install the Verfy CLI
+      shell: bash
+      env:
+        VERFY_VERSION: ${{ inputs.version }}
+      run: python -m pip install --disable-pip-version-check --quiet "verfy==$VERFY_VERSION"
+    - name: Compare tool definitions with the lock
+      shell: bash
+      env:
+        VERFY_CONFIG: ${{ inputs.config }}
+        VERFY_LOCK: ${{ inputs.lock }}
+        VERFY_SERVERS: ${{ inputs.servers }}
+      run: |
+        args=(lock check --config "$VERFY_CONFIG" --lock "$VERFY_LOCK")
+        for s in $VERFY_SERVERS; do args+=(--server "$s"); done
+        python -m verfy "${args[@]}"
