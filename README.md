@@ -4,7 +4,7 @@ Fail the pull request when an MCP tool your coding agents use changed since you 
 
 An MCP server can change a tool's description or input schema in any release, and that text goes straight into your agent's context. This action reads every tool your MCP config serves, compares each definition with the SHA-256 pins in your committed `verfy.lock`, and fails the check if one changed, with the diff in the log and as an annotation on the pull request.
 
-It runs the [Verfy CLI](https://github.com/anvarbekovjavohir277-dot/verfy) (MIT). Website and docs: https://verfy-tech.vercel.app
+It runs the [Verfy CLI](https://github.com/anvarbekovjavohir277-dot/verfy) (MIT). Website and docs: https://verfy.dev
 
 ## Use it
 
