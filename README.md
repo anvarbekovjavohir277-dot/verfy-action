@@ -33,6 +33,18 @@ jobs:
 
 Exit codes: 0 all tools match, 1 a tool is new or gone, 2 a tool changed, 3 a server did not answer.
 
+## Badge
+
+Running this check? You can say so in your README:
+
+[![Locked by Verfy](https://verfy.dev/badge/locked-by-verfy.svg)](https://verfy.dev/docs#badge)
+
+```markdown
+[![Locked by Verfy](https://verfy.dev/badge/locked-by-verfy.svg)](https://verfy.dev/docs#badge)
+```
+
+The badge states one fact, which you put there yourself: this repository commits `verfy.lock` and its CI fails when a tool definition changes. It is not a security review or a guarantee that the tools are safe.
+
 ## Inputs
 
 | Input | Default | What it is |
