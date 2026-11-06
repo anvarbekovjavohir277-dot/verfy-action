@@ -52,7 +52,7 @@ The badge states one fact, which you put there yourself: this repository commits
 | `config` | `.mcp.json` | MCP config whose servers are checked |
 | `lock` | `verfy.lock` | the committed lock file |
 | `servers` | all | space-separated server names to check |
-| `version` | `0.16.0` | Verfy CLI version from PyPI |
+| `version` | `0.16.1` | Verfy CLI version from PyPI |
 | `python-version` | `3.13` | Python that runs Verfy (3.10 or newer) |
 
 ## Remote servers and keys
